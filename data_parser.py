@@ -1,5 +1,8 @@
+
+
 import time
 import requests
+from statistics import mean
 
 # replace the values
 apikey="9NX4ZJK5X6GWNTZL"
@@ -13,32 +16,27 @@ r = requests.get(url)
 data = r.json()
 
 
-
-# print(data["Time Series (Daily)"])
-
 date_by_data = data["Time Series (Daily)"]
 
 
 dates = list(date_by_data.keys())
 
-for i in dates[:5]:
-    index = dates.index(i)
-    date = i
-    date_data = date_by_data[i]
-    # print(date_data)
+volume_list = []
+
+for date in dates[:20]:
+
+    date_data = date_by_data[date]
 
     volume = date_data["6. volume"]
-    print("Stock volume for date {} is {}".format(date, volume))
 
-    if index > 0:
-        previous_date_data = date_by_data[dates[index-1]]
-        print(date_data["6. volume"])
-        print(previous_date_data["6. volume"])
+    volume_list.append(int(volume))
 
-        diff = int(date_data["6. volume"]) - int(previous_date_data["6. volume"])
+today_data = date_by_data[dates[0]]["6. volume"]
 
-        print("Volume difference", diff)
+twenty_avg= mean(volume_list)
 
+if int(today_data) > int(twenty_avg):
+    print("Today the volume is greater than 20 days avg")
 
 
 
