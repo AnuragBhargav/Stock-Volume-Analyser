@@ -5,7 +5,7 @@ import requests
 from statistics import mean
 
 # replace the values
-apikey="9NX4ZJK5X6GWNTZL"
+apikey=""
 stock = "RELIANCE"
 index = "BSE"
 
